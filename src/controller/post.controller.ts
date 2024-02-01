@@ -68,29 +68,7 @@ export const deletePost = async (
   }
 };
 
-export const getPosts = async (req: Request, res: Response): Promise<void> => {
-  try {
-    let page = parseInt(req.query.page as string) || 1;
-    let perPage = parseInt(req.query.perPage as string) || 10;
-
-    const totalPosts: number = await Post.countDocuments();
-    const posts: IPost[] = await Post.find()
-      .skip((page - 1) * perPage)
-      .limit(perPage);
-
-    res.json({
-      currentPage: page,
-      perPage: perPage,
-      totalPosts: totalPosts,
-      totalPages: Math.ceil(totalPosts / perPage),
-      posts: posts,
-    });
-  } catch (error) {
-    res.status(500).send({ message: (error as Error).message });
-  }
-};
-
-export const searchPosts = async (
+export const getPosts = async (
   req: Request,
   res: Response
 ): Promise<void> => {

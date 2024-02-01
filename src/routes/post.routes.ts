@@ -6,7 +6,6 @@ import {
   updatePost,
   deletePost,
   getPosts,
-  searchPosts
 } from "../controller/post.controller";
 import authenticate from "../middleware/authenticate";
 import { requireUser } from "../middleware/requireUser";
@@ -15,16 +14,14 @@ const router = Router();
 
 router.use(authenticate, requireUser);
 
-router.post("/create", createPost);
+router.get("/", getPosts);
 
-router.get("/posts", getPosts);
+router.get("/:id", getPost);
 
-router.get("/get/:id", getPost);
+router.post("/", createPost);
 
-router.delete("/delete/:id", deletePost);
+router.put("/:id", updatePost);
 
-router.put("/update/:id", updatePost);
-
-router.get('/search', searchPosts);
+router.delete("/:id", deletePost);
 
 export default router;
