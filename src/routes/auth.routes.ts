@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
 import {
     signupUser,
     loginUser
@@ -8,7 +8,8 @@ import {
 
 const router = Router();
 
-router.post("/signup", validateUserCredentials, (req: Request, res: Response) => signupUser(req, res));
-router.post("/login", (req: Request, res: Response) => loginUser(req, res));
+router.post("/signup", validateUserCredentials, signupUser);
+
+router.post("/login", loginUser);
 
 export default router;
