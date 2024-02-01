@@ -1,7 +1,7 @@
 import * as bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import { signJwt } from "../utils/jwt";
-import User from "../models/user.model";
+import User from "../models/User";
 
 export const hashPassword = async (password: string): Promise<string> => {
   const saltRounds = 10;
