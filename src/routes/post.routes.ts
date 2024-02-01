@@ -6,6 +6,7 @@ import {
   updatePost,
   deletePost,
   getPosts,
+  searchPosts
 } from "../controller/post.controller";
 import authenticate from "../middleware/authenticate";
 import { requireUser } from "../middleware/requireUser";
@@ -23,5 +24,7 @@ router.get("/get/:id", getPost);
 router.delete("/delete/:id", deletePost);
 
 router.put("/update/:id", updatePost);
+
+router.get('/search', searchPosts);
 
 export default router;

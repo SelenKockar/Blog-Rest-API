@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Post, { IPost } from "../models/Posts"; 
+import Post, { IPost } from "../models/Posts";
 
 export const createPost = async (
   req: Request<{}, {}, IPost>,
@@ -15,8 +15,8 @@ export const createPost = async (
 
     const newPost = new Post({ title, content, author, createdAt });
     const savedPost = await newPost.save();
-    res.status(201).json(savedPost); 
-    } catch (error: any) {
+    res.status(201).json(savedPost);
+  } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
 };
@@ -75,8 +75,8 @@ export const getPosts = async (req: Request, res: Response): Promise<void> => {
 
     const totalPosts: number = await Post.countDocuments();
     const posts: IPost[] = await Post.find()
-                                     .skip((page - 1) * perPage)
-                                     .limit(perPage);
+      .skip((page - 1) * perPage)
+      .limit(perPage);
 
     res.json({
       currentPage: page,
@@ -90,4 +90,36 @@ export const getPosts = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+export const searchPosts = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const keywords = req.query.keywords
+      ? {
+          $or: [
+            { title: { $regex: req.query.keywords, $options: "i" } },
+            { content: { $regex: req.query.keywords, $options: "i" } },
+          ],
+        }
+      : {};
 
+    let page = parseInt(req.query.page as string) || 1;
+    let perPage = parseInt(req.query.perPage as string) || 10;
+
+    const totalPosts: number = await Post.countDocuments(keywords);
+    const posts: IPost[] = await Post.find(keywords)
+      .skip((page - 1) * perPage)
+      .limit(perPage);
+
+    res.json({
+      currentPage: page,
+      perPage: perPage,
+      totalPosts: totalPosts,
+      totalPages: Math.ceil(totalPosts / perPage),
+      posts: posts,
+    });
+  } catch (error) {
+    res.status(500).send({ message: (error as Error).message });
+  }
+};
