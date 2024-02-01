@@ -3,6 +3,7 @@ import cors from "cors";
 import connectDB from "./config/db";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import authRouter from "./routes/auth.routes";
 
 dotenv.config();
 
@@ -24,6 +25,8 @@ app.use(
     credentials: true,
   })
 );
+
+app.use('/auth', authRouter)
 
 const port = 8080;
 
