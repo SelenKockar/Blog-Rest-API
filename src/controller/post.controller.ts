@@ -3,7 +3,7 @@ import Post, { IPost } from "../models/Posts";
 
 export const createPost = async (
   req: Request<{}, {}, IPost>,
-  res: Response
+  res: Response,
 ) => {
   try {
     const { title, content, createdAt } = req.body;
@@ -35,13 +35,13 @@ export const getPost = async (req: Request<{ id: string }>, res: Response) => {
 
 export const updatePost = async (
   req: Request<{ id: string }, {}, IPost>,
-  res: Response
+  res: Response,
 ) => {
   try {
     const updatedPost = await Post.findByIdAndUpdate(
       req.params.id,
       { ...req.body },
-      { new: true }
+      { new: true },
     );
 
     if (!updatedPost) {
@@ -55,7 +55,7 @@ export const updatePost = async (
 
 export const deletePost = async (
   req: Request<{ id: string }>,
-  res: Response
+  res: Response,
 ) => {
   try {
     const post = await Post.findByIdAndDelete(req.params.id);
@@ -68,10 +68,7 @@ export const deletePost = async (
   }
 };
 
-export const getPosts = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+export const getPosts = async (req: Request, res: Response): Promise<void> => {
   try {
     const keywords = req.query.keywords
       ? {

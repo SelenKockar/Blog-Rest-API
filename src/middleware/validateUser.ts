@@ -10,7 +10,7 @@ interface UserCredentials {
 const validateUserCredentials = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     //Get email and password from req.body

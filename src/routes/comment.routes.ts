@@ -1,4 +1,4 @@
-import { Router} from "express";
+import { Router } from "express";
 
 import {
   addComment,
@@ -16,7 +16,7 @@ router.use(authenticate, requireUser);
 
 router.get("/:id", getComment);
 
-router.get("/:id",  getCommentsOnPost);
+router.get("/:id", getCommentsOnPost);
 
 router.post("/", addComment);
 

@@ -11,7 +11,7 @@ interface TokenPayload {
 export const signJwt = (
   payload: TokenPayload,
   keyName: "accessToken" | "refreshToken",
-  options?: SignOptions
+  options?: SignOptions,
 ): string => {
   let secretKey: string;
   if (keyName === "accessToken") {
@@ -29,7 +29,7 @@ export const signJwt = (
 
 export const verifyJwt = <T = any>(
   token: string,
-  keyName: "accessToken" | "refreshToken"
+  keyName: "accessToken" | "refreshToken",
 ): T | null => {
   let secretKey: string;
   if (keyName === "accessToken") {

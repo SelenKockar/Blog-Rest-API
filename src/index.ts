@@ -4,7 +4,7 @@ import connectDB from "./config/db";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import authRouter from "./routes/auth.routes";
-import postRouter  from "./routes/post.routes";
+import postRouter from "./routes/post.routes";
 import commentRouter from "./routes/comment.routes";
 
 dotenv.config();
@@ -25,12 +25,12 @@ app.use(
   cors({
     origin: "*",
     credentials: true,
-  })
+  }),
 );
 
-app.use('/auth', authRouter)
-app.use('/post',postRouter)
-app.use('/comment',commentRouter)
+app.use("/auth", authRouter);
+app.use("/post", postRouter);
+app.use("/comment", commentRouter);
 
 const port = 8080;
 

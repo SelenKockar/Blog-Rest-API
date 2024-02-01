@@ -1,7 +1,10 @@
-import { Request, Response,  CookieOptions } from 'express';
-import User from '../models/User';
-import { hashPassword, comparePasswords, signTokens} from '../services/auth.service';
-
+import { Request, Response, CookieOptions } from "express";
+import User from "../models/User";
+import {
+  hashPassword,
+  comparePasswords,
+  signTokens,
+} from "../services/auth.service";
 
 export const signupUser = async (req: Request, res: Response) => {
   try {
@@ -20,8 +23,7 @@ export const signupUser = async (req: Request, res: Response) => {
     const newUser = new User({
       username,
       email: email.toLowerCase(),
-      password: hashedPassword
-      
+      password: hashedPassword,
     });
 
     // Save the user to the database
@@ -81,7 +83,7 @@ export const loginUser = async (req: Request, res: Response) => {
     const loginResponse = {
       message: "Login successful",
       accessToken,
-      refreshToken
+      refreshToken,
     };
     res.status(200).json(loginResponse);
   } catch (error) {
