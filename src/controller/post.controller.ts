@@ -89,34 +89,5 @@ export const getPosts = async (req: Request, res: Response): Promise<void> => {
     res.status(500).send({ message: (error as Error).message });
   }
 };
-interface PaginationQuery {
-  page: string;
-  perPage: string;
-}
 
-export const pagination = async (req: Request<{}, {}, {}, PaginationQuery>, res: Response) => {
-  try {
-    const page = parseInt(req.query.page) || 1;
-    const perPage = parseInt(req.query.perPage) || 10;
 
-    const totalPosts = await Post.countDocuments();
-    const totalPages = Math.ceil(totalPosts / perPage);
-    const start = (page - 1) * perPage;
-
-    const posts = await Post.find().skip(start).limit(perPage);
-
-    res.json({
-      page,
-      perPage,
-      totalPosts,
-      totalPages,
-      posts
-    });
-  } catch (error) {
-    if (error instanceof Error) {
-      res.status(500).json({ message: error.message });
-    } else {
-      res.status(500).json({ message: 'Unknown server error' });
-    }
-  }
-};
